@@ -2,46 +2,24 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::prefix('dashboard')->middleware(['web'])->group(function () {
 
-Route::prefix('admin')->middleware(['web'])->group(function () {
-
-
+    // Dashboard and profile routes
     Route::get('/', function () {
-        return view('admin.dashboard');
-    })->name('admin.profile');
-
-    Route::get('/profile', function () {
-        return view('admin.profile.index');
+        return view('dashboard.dashboard');
     })->name('admin.dashboard');
 
-    Route::get('/users', function () {
-        return view('admin.users.index');
-    })->name('admin.users');
+    Route::get('/profile', function () {
+        return view('dashboard.profile.index');
+    })->name('admin.profile');
 
-    Route::get('/invitations', function () {
-        return view('admin.invitations.index');
-    })->name('admin.invitations');
-
-    Route::get('/payment', function () {
-        return view('admin.payment.index');
-    })->name('admin.payment');
-
-    Route::get('/contacts', function () {
-        return view('admin.contacts.index');
-    })->name('admin.contacts');
-
-    Route::get('/packages', function () {
-        return view('admin.packages.index');
-    })->name('admin.packages');
-
-    Route::get('/packageCategories', function () {
-        return view('admin.package_categories.index');
-    })->name('admin.packageCategories');
-
-    Route::get('/templates', function () {
-        return view('admin.templates.index');
-    })->name('admin.templates');
-
-
-
+    // Resource routes
+    Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+    Route::resource('contacts', App\Http\Controllers\Admin\ContactController::class);
+    Route::resource('invitations', App\Http\Controllers\Admin\InvitationController::class);
+    Route::resource('templates', App\Http\Controllers\Admin\TemplateController::class);
+    Route::resource('template_fields', App\Http\Controllers\Admin\TemplateFieldController::class);
+    Route::resource('packages', App\Http\Controllers\Admin\PackageController::class);
+    Route::resource('package_categories', App\Http\Controllers\Admin\PackageCategoryController::class);
+    Route::resource('invitation_categories', App\Http\Controllers\Admin\InvitationCategoryController::class);
 });

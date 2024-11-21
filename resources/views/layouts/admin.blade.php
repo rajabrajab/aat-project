@@ -27,17 +27,6 @@
 
     <!-- charts files   -->
 
-	<script src="{{ asset('assets/js/vendor/visualization/d3/d3.min.js') }}"></script>
-	<script src="{{ asset('assets/js/vendor/visualization/d3/d3_tooltip.js') }}"></script>
-
-    <script src="{{ asset('assets/demo/charts/echarts/bars/columns_basic.js') }}"></script>
-	<script src="{{ asset('assets/demo/charts/echarts/bars/columns_stacked.js') }}"></script>
-	<script src="{{ asset('assets/demo/charts/echarts/bars/columns_thermometer.js') }}"></script>
-	<script src="{{ asset('assets/demo/charts/echarts/bars/columns_stacked_clustered.js') }}"></script>
-	<script src="{{ asset('assets/demo/charts/echarts/bars/columns_timeline.js') }}"></script>
-	<script src="{{ asset('assets/demo/charts/echarts/bars/waterfall_compositive.js') }}"></script>
-	<script src="{{ asset('assets/demo/charts/echarts/bars/waterfall_change.js') }}"></script>
-    <script src="{{ asset('assets/demo/charts/pages/dashboard/bars.js') }}"></script>
 
     <!-- Theme JS files -->
 	<script src="{{ asset('assets/js/jquery/jquery.min.js') }}"></script>
