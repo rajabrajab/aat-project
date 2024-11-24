@@ -1,0 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap");
+html,
+body {
+  font-family: "Cairo";
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  color: #667e9b;
+  height: 100%;
+  width: 100%;
+  background: white;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+@media (max-width: 991px) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+.login-section {
+  padding: 20px 20px 10px;
+}
+.login-section .home {
+  font-weight: 400;
+  font-size: 14px;
+  color: #000000;
+  text-decoration: none;
+}
+.login-section span {
+  color: #000000;
+  font-size: 14px;
+}
+.login-section .login-form {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 150px 100px 6px;
+}
+@media (max-width: 767px) {
+  .login-section .login-form {
+    padding: 10px 5px 10px;
+  }
+}
+.login-section .login-form form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-section .login-form input::-moz-placeholder {
+  font-weight: 300;
+  font-size: 18px;
+  color: rgba(56, 56, 56, 0.7);
+}
+.login-section .login-form input::placeholder {
+  font-weight: 300;
+  font-size: 18px;
+  color: rgba(56, 56, 56, 0.7);
+}
+.login-section .login-form h3 {
+  font-weight: 700;
+  font-size: 28px;
+  color: #383838;
+}
+.login-section .login-form p,
+.login-section .login-form span {
+  font-size: 18px;
+  line-height: 30px;
+  color: rgb(115, 115, 115);
+}
+.login-section .login-form .otp-inputs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+.login-section .login-form .otp-inputs .otp-input {
+  width: 60px;
+  height: 60px;
+  margin: 0 10px;
+  font-size: 24px;
+  text-align: center;
+  border: 1px solid #c0c6ff;
+  border-radius: 10px;
+  background-color: #ecefff;
+  transition: border-color 0.3s;
+}
+.login-section .login-form .otp-inputs .otp-input:focus {
+  outline: none;
+  border-color: #4621d5;
+}
+@media (max-width: 767px) {
+  .login-section .login-form .otp-inputs .otp-input {
+    width: 50px;
+    height: 50px;
+    margin: 0 5px;
+  }
+}
+.login-section .login-form .resend {
+  font-size: 16px;
+  color: #4621d5;
+}
+.login-section .login-form .resend span {
+  font-size: 16px;
+  color: #4621d5;
+}
+.login-section .image-col {
+  max-height: 95vh;
+  overflow: hidden;
+}
+.login-section .image-col img {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}/*# sourceMappingURL=otp.css.map */

@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap");
+@import "../helpers/responsive";
+html,
+body {
+  font-family: "Cairo";
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  color: #667e9b;
+  height: 100%;
+  width: 100%;
+  background: #ffff;
+}
+a:hover {
+  text-decoration: none;
+}
+img {
+  max-width: 100%;
+}
+
+.container {
+  @include respond-down(md) {
+    max-width: 100%;
+  }
+}

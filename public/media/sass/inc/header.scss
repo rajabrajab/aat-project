@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap");
+@import "../helpers/responsive";
+
+.nav-item {
+  font-size: 16px;
+}
+.navbar-nav .nav-link {
+  margin-top: 15px;
+  margin-left: 5px;
+  color: #4621d5 !important;
+}
+
+.navbar-nav {
+  margin-left: 32px;
+  gap: 60px;
+
+  @include respond-down(sm) {
+    gap: 20px;
+  }
+}
+
+.btn-header {
+  @include respond-down(sm) {
+    display: none;
+  }
+  padding: 8px 10px;
+
+  background-color: #4621d5;
+  border-radius: 148px;
+
+  text-decoration: none;
+
+  color: white;
+}

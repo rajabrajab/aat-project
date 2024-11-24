@@ -1,0 +1,39 @@
+.footer {
+  background-color: #4621d5;
+  color: #e1e1e1;
+  gap: 20px;
+
+  .footer-logo {
+    max-width: 100px;
+  }
+
+  .footer-link {
+    color: #e1e1e1;
+    margin-left: 24px;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  .footer-divider {
+    border-color: #e1e1e1;
+  }
+
+  .copy {
+    color: #e1e1e1;
+    font-size: 14px;
+  }
+
+  .socils {
+    @include respond-down(sm) {
+      margin-top: 20px;
+      justify-content: center !important;
+    }
+  }
+
+  .icon {
+    img {
+      width: 36px;
+      height: 36px;
+    }
+  }
+}

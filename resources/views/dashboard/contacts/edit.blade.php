@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="container">
-    <h1>Edit Contact</h1>
+
 
     <div class="card">
         <div class="card-header">
-            <h5 class="mb-0"> تعديل حهة اتصال</h5>
+            <h5 class="mb-0"> تعديل جهة اتصال</h5>
         </div>
 
         <div class="card-body">
@@ -31,14 +31,14 @@
 
             <div class="col-md-6">
                 <label for="position" class="form-label">الوظيفة</label>
-                <input type="text" name="position" id="position" class="form-control" placeholder="أدخل الوظيفة" value="{{ old('position'),$contact->position  }}">
+                <input type="text" name="position" id="position" class="form-control" placeholder="أدخل الوظيفة" value="{{ old('position',$contact->position)  }}">
                 @error('position') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
 
             <div class="col-md-6">
                 <label for="birth_date" class="form-label">تاريخ الميلاد</label>
-                <input type="date" name="birth_date" id="birth_date" class="form-control" value="{{ old('birth_date'), $contact->birth_date }}">
-                @error('birth_date') <div class="text-danger">{{ $message }}</div> @enderror
+                <input type="date" name="birth_date" id="birth_date" class="form-control" value="{{ old('birthdate', $contact->birthdate) }}">
+                @error('birthdate') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
 
             <div class="col-md-6">
@@ -53,13 +53,13 @@
 
             <div class="col-md-6">
                 <label for="phone_number" class="form-label">رقم الهاتف</label>
-                <input type="text" name="phone_number" id="phone_number" class="form-control" placeholder="أدخل رقم الهاتف" value="{{ old('phone_number' $contact->phone_number) }}" required>
+                <input type="text" name="phone_number" id="phone_number" class="form-control" placeholder="أدخل رقم الهاتف" value="{{ old('phone_number', $contact->phone_number) }}" required>
                 @error('phone_number') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
 
             <div class="col-md-6">
                 <label for="whatsapp_number" class="form-label">رقم الواتساب</label>
-                <input type="text" name="whatsapp_number" id="whatsapp_number" class="form-control" placeholder="أدخل رقم الواتساب" value="{{ old('whatsapp_number', $contact->whatsapp_number) }}">
+                <input type="text" name="whatsapp_number" id="whatsapp_number" class="form-control" placeholder="أدخل رقم الواتساب" value="{{ old('whatsapp_number', $contact->whatsapp_number )}}">
                 @error('whatsapp_number') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
 
@@ -70,7 +70,7 @@
             </div>
         </div>
 
-        </div>
+
 
        <div class="text-end mt-3">
             <button type="submit" class="btn btn-primary">حفظ </button>
@@ -79,8 +79,23 @@
 </div>
 </div>
 </div>
+
+<script src="{{ asset('js/validation.js') }}"></script>
+
+<script src="{{ asset('js/toastrNotification.js') }}"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @elseif (session('error'))
+            toastr.error("{{ session('error') }}");
+        @elseif (session('info'))
+            toastr.info("{{ session('info') }}");
+        @elseif (session('warning'))
+            toastr.warning("{{ session('warning') }}");
+        @endif
+    });
+</script>
+
 @endsection
 
-@section('scripts')
-<script src="{{ asset('js/validation.js') }}"></script>
-@endsection

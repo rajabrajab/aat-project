@@ -13,7 +13,7 @@
 
 
 
-    <form action="{{ route('package_categories.update',$package_categorie->id ) }}" method="POST" class="needs-validation" novalidate>
+    <form action="{{ route('package_categories.update',$packageCategory->id ) }}" method="POST" class="needs-validation" novalidate>
         @csrf
         @method('PUT')
 
@@ -32,8 +32,22 @@
 </div>
 </div>
 </div>
-@endsection
 
-@section('scripts')
 <script src="{{ asset('js/validation.js') }}"></script>
+
+<script src="{{ asset('js/toastrNotification.js') }}"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @elseif (session('error'))
+            toastr.error("{{ session('error') }}");
+        @elseif (session('info'))
+            toastr.info("{{ session('info') }}");
+        @elseif (session('warning'))
+            toastr.warning("{{ session('warning') }}");
+        @endif
+    });
+</script>
+
 @endsection

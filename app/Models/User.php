@@ -17,10 +17,24 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
+   protected $fillable = [
+        'source_platform',
         'email',
         'password',
+        'avatar',
+        'full_name',
+        'status',
+        'role',
+        'permissions',
+        'activated_at',
+        'username',
+        'country',
+        'address',
+        'gender',
+        'city',
+        'last_login',
+        'deleted_by',
+        'utm',
     ];
 
     /**
@@ -44,5 +58,26 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+
+     // Relationships
+
+    // User has many invitations
+    public function invitations()
+    {
+        return $this->hasMany(Invitation::class, 'user_id');
+    }
+
+    // User has many reviews
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'user_id');
+    }
+
+    // User has many payments
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'user_id');
     }
 }

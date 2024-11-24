@@ -1,42 +1,53 @@
 @extends('layouts.admin')
-@section('title','الملف الشخصي')
-
+@section('title', 'الملف الشخصي')
 
 @section('content')
 <div class="container">
 
-    <!-- Profile info -->
-
+    <!-- معلومات الملف الشخصي -->
     <div class="card">
         <div class="card-header">
-            <h5 class="mb-0">Profile information</h5>
+            <h5 class="mb-0">معلومات الملف الشخصي</h5>
         </div>
 
         <div class="card-body">
 
             <div class="card-img-actions d-inline-block mb-3">
-                <img class="img-fluid rounded-circle" src="../../../assets/images/demo/users/face11.jpg" width="150"
-                    height="150" alt="">
+                <img class="img-fluid rounded-circle"
+                    src="{{ asset($user->avatar ? 'storage/' . $user->avatar : 'assets/images/demo/users/face1.jpg') }}"
+                    height="150" width="150" alt="User Avatar">
+
                 <div class="card-img-actions-overlay card-img rounded-circle">
-                    <a href="#" class="btn btn-outline-white btn-icon rounded-pill">
-                        <i class="ph-pencil"></i>
-                    </a>
+                    <form action="{{ route('admin.profile.update.avatar') }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <label class="btn btn-outline-white btn-icon rounded-pill">
+                            <i class="ph-pencil"></i>
+                            <input type="file" class="form-control" name="avatar" accept="image/*" hidden
+                                onchange="this.form.submit()">
+                        </label>
+                    </form>
                 </div>
             </div>
 
+            <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
 
-            <form action="#">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label class="form-label">Username</label>
-                            <input type="text" value="Victoria" class="form-control">
+                            <label class="form-label">اسم المستخدم</label>
+                            <input type="text" name="username" value="{{ old('username', $user->username) }}"
+                                class="form-control" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label class="form-label">Full name</label>
-                            <input type="text" value="Smith" class="form-control">
+                            <label class="form-label">الاسم الكامل</label>
+                            <input type="text" name="full_name" value="{{ old('full_name', $user->full_name) }}"
+                                class="form-control" required>
                         </div>
                     </div>
                 </div>
@@ -44,35 +55,16 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label class="form-label">Address line 1</label>
-                            <input type="text" value="Ring street 12" class="form-control">
+                            <label class="form-label">البريد الإلكتروني</label>
+                            <input type="email" name="email" value="{{ old('email', $user->email) }}"
+                                class="form-control" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label class="form-label">Address line 2</label>
-                            <input type="text" value="building D, flat #67" class="form-control">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="mb-3">
-                            <label class="form-label">City</label>
-                            <input type="text" value="Munich" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="mb-3">
-                            <label class="form-label">State/Province</label>
-                            <input type="text" value="Bayern" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="mb-3">
-                            <label class="form-label">ZIP code</label>
-                            <input type="text" value="1031" class="form-control">
+                            <label class="form-label">كلمة المرور</label>
+                            <input type="password" name="password" class="form-control">
+                            <small class="text-muted">اتركه فارغًا إذا كنت لا تريد التغيير</small>
                         </div>
                     </div>
                 </div>
@@ -80,50 +72,59 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="text" readonly="readonly" value="victoria@smith.com" class="form-control">
+                            <label class="form-label">الدولة</label>
+                            <input type="text" name="country" value="{{ old('country', $user->country) }}"
+                                class="form-control" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label class="form-label">Your country</label>
-                            <select class="form-select">
-                                <option value="germany" selected>Germany</option>
-                                <option value="france">France</option>
-                                <option value="spain">Spain</option>
-                                <option value="netherlands">Netherlands</option>
-                                <option value="other">...</option>
-                                <option value="uk">United Kingdom</option>
-                            </select>
+                            <label class="form-label">المدينة</label>
+                            <input type="text" name="city" value="{{ old('city', $user->city) }}" class="form-control"
+                                required>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label class="form-label">Phone #</label>
-                            <input type="text" value="+99-99-9999-9999" class="form-control">
-                            <div class="form-text text-muted">+99-99-9999-9999</div>
-                        </div>
-                    </div>
+                <div class="mb-3">
+                    <label class="form-label">العنوان</label>
+                    <input type="text" name="address" value="{{ old('address', $user->address) }}" class="form-control"
+                        required>
+                </div>
 
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label class="form-label">Upload profile image</label>
-                            <input type="file" class="form-control">
-                            <div class="form-text text-muted">Accepted formats: gif, png, jpg. Max file size 2Mb</div>
-                        </div>
-                    </div>
+                <div class="mb-3">
+                    <label class="form-label">الجنس</label>
+                    <select name="gender" class="form-select" required>
+                        <option value="male" {{ old('gender', $user->gender) == 'male' ? 'selected' : '' }}>ذكر</option>
+                        <option value="female" {{ old('gender', $user->gender) == 'female' ? 'selected' : '' }}>أنثى
+                        </option>
+                    </select>
                 </div>
 
                 <div class="text-end">
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
                 </div>
             </form>
         </div>
     </div>
-    <!-- /profile info -->
+    <!-- /معلومات الملف الشخصي -->
 
 </div>
+<script src="{{ asset('js/validation.js') }}"></script>
+
+<script src="{{ asset('js/toastrNotification.js') }}"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @elseif (session('error'))
+            toastr.error("{{ session('error') }}");
+        @elseif (session('info'))
+            toastr.info("{{ session('info') }}");
+        @elseif (session('warning'))
+            toastr.warning("{{ session('warning') }}");
+        @endif
+    });
+</script>
+
 @endsection

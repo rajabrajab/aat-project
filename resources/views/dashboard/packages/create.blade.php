@@ -19,12 +19,12 @@
             <div class="col-md-6">
                 <label for="category_id" class="form-label">الفئة</label>
                 <select name="category_id" id="category_id" class="form-select" required>
-                    <option value="" disabled>اختر الفئة</option>
-                    {{-- @foreach ($categories as $category)
+                    <option value="" disabled selected>اختر الفئة</option>
+                    @foreach ($categories as $category)
                         <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
                             {{ $category->name }}
                         </option>
-                    @endforeach --}}
+                    @endforeach
                 </select>
                 @error('category_id') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
@@ -91,8 +91,24 @@
 </div>
 </div>
 </div>
-@endsection
 
-@section('scripts')
+
+
 <script src="{{ asset('js/validation.js') }}"></script>
+
+<script src="{{ asset('js/toastrNotification.js') }}"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @elseif (session('error'))
+            toastr.error("{{ session('error') }}");
+        @elseif (session('info'))
+            toastr.info("{{ session('info') }}");
+        @elseif (session('warning'))
+            toastr.warning("{{ session('warning') }}");
+        @endif
+    });
+</script>
+
 @endsection

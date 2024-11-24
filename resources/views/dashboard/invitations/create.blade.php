@@ -20,11 +20,11 @@
                 <label for="user_id" class="form-label">المستخدم</label>
                 <select name="user_id" id="user_id" class="form-select" required>
                     <option value="" disabled selected>اختر المستخدم</option>
-                    {{-- @foreach ($users as $user)
-                        <option value="{{ $user->id }}">
-                            {{ $user->name }}
-                        </option>
-                    @endforeach --}}
+                    @foreach ($users as $user)
+                            <option value="{{ $user->id }}">
+                                {{ $user->username }}
+                            </option>
+                            @endforeach
                 </select>
                 @error('user_id') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
@@ -33,11 +33,11 @@
                 <label for="package_id" class="form-label">الباقة</label>
                 <select name="package_id" id="package_id" class="form-select" required>
                     <option value="" disabled {{ old('package_id') == '' ? 'selected' : '' }}>اختر الباقة</option>
-                    {{-- @foreach ($packages as $package)
+                    @foreach ($packages as $package)
                         <option value="{{ $package->id }}">
                             {{ $package->name }}
                         </option>
-                    @endforeach --}}
+                    @endforeach
                 </select>
                 @error('package_id') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
@@ -46,11 +46,11 @@
                 <label for="category_id" class="form-label">الفئة</label>
                 <select name="category_id" id="category_id" class="form-select" required>
                     <option value="" disabled selected>اختر الفئة</option>
-                    {{-- @foreach ($categories as $category)
+                    @foreach ($categories as $category)
                         <option value="{{ $category->id }}">
                             {{ $category->name }}
                         </option>
-                    @endforeach --}}
+                    @endforeach
                 </select>
                 @error('category_id') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
@@ -59,11 +59,11 @@
                 <label for="template_id" class="form-label">القالب</label>
                 <select name="template_id" id="template_id" class="form-select" required>
                     <option value="" disabled selected>اختر القالب</option>
-                    {{-- @foreach ($templates as $template)
+                    @foreach ($templates as $template)
                         <option value="{{ $template->id }}">
                             {{ $template->name }}
                         </option>
-                    @endforeach --}}
+                    @endforeach
                 </select>
                 @error('template_id') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
@@ -130,21 +130,14 @@
                 <label for="payment_method" class="form-label">طريقة الدفع</label>
                 <select name="payment_method" id="payment_method" class="form-select" required>
                     <option value="" disabled selected>اختر طريقة الدفع</option>
-                    <option value="credit_card">بطاقة ائتمان</option>
+                    <option value="cash"> كاش</option>
                     <option value="paypal" >بايبال</option>
+                    <option value="tamara"> تمارا</option>
+                    <option value="myfatoorah" >ماي  فاتورا</option>
                 </select>
                 @error('payment_method') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
 
-            <div class="col-md-6">
-                <label for="payment_status" class="form-label">حالة الدفع</label>
-                <select name="payment_status" id="payment_status" class="form-select" required>
-                    <option value="" disabled selected>اختر حالة الدفع</option>
-                    <option value="pending" >معلق</option>
-                    <option value="completed">مكتمل</option>
-                </select>
-                @error('payment_status') <div class="text-danger">{{ $message }}</div> @enderror
-            </div>
 
             <div class="col-md-6">
                 <label for="qr_code" class="form-label">رمز الاستجابة السريع</label>
@@ -160,8 +153,24 @@
 </div>
 </div>
 </div>
-@endsection
 
-@section('scripts')
+
+
 <script src="{{ asset('js/validation.js') }}"></script>
+
+<script src="{{ asset('js/toastrNotification.js') }}"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @elseif (session('error'))
+            toastr.error("{{ session('error') }}");
+        @elseif (session('info'))
+            toastr.info("{{ session('info') }}");
+        @elseif (session('warning'))
+            toastr.warning("{{ session('warning') }}");
+        @endif
+    });
+</script>
+
 @endsection

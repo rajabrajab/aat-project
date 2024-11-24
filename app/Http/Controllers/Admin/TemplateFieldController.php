@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TemplateFieldRequest;
+use App\Models\Template;
 use App\Models\TemplateField;
 use Illuminate\Http\Request;
 
@@ -16,42 +18,25 @@ class TemplateFieldController extends Controller
 
     public function create()
     {
-        // $templates = Template::all();
-        // return view('dashboard.template_fields.create', compact('templates'));
-
-         return view('dashboard.template_fields.create');
+        $templates = Template::all();
+        return view('dashboard.template_fields.create', compact('templates'));
 
     }
 
-    public function store(Request $request)
+   public function store(TemplateFieldRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'template_id' => 'required|exists:templates,id',
-            'field_type' => 'required|in:text,textarea,select,checkbox,radio,date',
-            'label' => 'required|string|max:255',
-        ]);
-
-        TemplateField::create($request->all());
+        TemplateField::create($request->validated()); // Use validated data
         return redirect()->route('template_fields.index')->with('success', 'تم إنشاء الحقل بنجاح');
     }
-
     public function edit(TemplateField $templateField)
     {
         $templates = Template::all(); // Fetch templates for the dropdown
         return view('dashboard.template_fields.edit', compact('templateField', 'templates'));
     }
 
-    public function update(Request $request, TemplateField $templateField)
+    public function update(TemplateFieldRequest $request, TemplateField $templateField)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'template_id' => 'required|exists:templates,id',
-            'field_type' => 'required|in:text,textarea,select,checkbox,radio,date',
-            'label' => 'required|string|max:255',
-        ]);
-
-        $templateField->update($request->all());
+        $templateField->update($request->validated()); // Use validated data
         return redirect()->route('template_fields.index')->with('success', 'تم تعديل الحقل بنجاح');
     }
 

@@ -10,8 +10,8 @@ class InvitationCategoryController extends Controller
 {
     public function index()
     {
-        $categories = InvitationCategory::all();
-        return view('dashboard.invitation_categories.index', compact('categories'));
+        $invitation_categories = InvitationCategory::all();
+        return view('dashboard.invitation_categories.index', compact('invitation_categories'));
     }
 
     public function create()

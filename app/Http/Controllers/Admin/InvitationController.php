@@ -3,7 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\InvitationRequest;
 use App\Models\Invitation;
+use App\Models\InvitationCategory;
+use App\Models\Package;
+use App\Models\PackageCategory;
+use App\Models\Template;
+use App\Models\User;
+use App\Services\FileHelper;
 use Illuminate\Http\Request;
 
 class InvitationController extends Controller
@@ -16,36 +23,31 @@ class InvitationController extends Controller
 
     public function create()
     {
-        // $users = User::all();
-        // $packages = Package::all();
-        // Add other required data
-        // return view('dashboard.invitations.create', compact('users', 'packages'));
+        $users = User::all();
+        $packages = Package::all();
+        $categories = InvitationCategory::all();
+        $templates = Template::all();
 
-        return view('dashboard.invitations.create');
+        return view('dashboard.invitations.create', compact('users', 'packages' ,'categories' , 'templates'));
     }
-
-    public function store(Request $request)
+    public function store(InvitationRequest $request)
     {
-        $request->validate([
-        'user_id' => 'required|exists:users,id',
-        'package_id' => 'required|exists:packages,id',
-        'category_id' => 'required|exists:categories,id',
-        'template_id' => 'required|exists:templates,id',
-        'invitation_name' => 'required|string|max:255',
-        'date_type' => 'required|in:gregorian,hijri',
-        'invitation_date' => 'required|date',
-        'invitation_time' => 'required',
-        'invitation_image' => 'nullable|image|max:2048',
-        'invitation_video' => 'nullable|mimes:mp4,avi|max:10240',
-        'city' => 'required|string|max:255',
-        'hood' => 'required|string|max:255',
-        'detailed_address' => 'required|string|max:500',
-        'payment_method' => 'required|in:credit_card,paypal',
-        'payment_status' => 'required|in:pending,completed',
-        'qr_code' => 'nullable|string|max:255',
-        ]);
+        $imageName = $request->hasFile('invitation_image')
+            ? FileHelper::uploadFile($request->file('invitation_image'), 'invitations/images')
+            : null;
 
-        Invitation::create($request->all());
+        $videoName = $request->hasFile('invitation_video')
+            ? FileHelper::uploadFile($request->file('invitation_video'), 'invitations/videos')
+            : null;
+
+        Invitation::create(array_merge(
+            $request->validated(), // Use validated data
+            [
+                'invitation_image' => $imageName,
+                'invitation_video' => $videoName,
+            ]
+        ));
+
         return redirect()->route('invitations.index')->with('success', 'تم إنشاء الدعوة بنجاح');
     }
 
@@ -53,32 +55,30 @@ class InvitationController extends Controller
     {
         $users = User::all();
         $packages = Package::all();
-        // Add other required data
-        return view('dashboard.invitations.edit', compact('invitation', 'users', 'packages'));
+        $categories = InvitationCategory::all();
+        $templates = Template::all();
+
+        return view('dashboard.invitations.edit', compact('invitation', 'users', 'packages' ,'categories' , 'templates'));
     }
 
-    public function update(Request $request, Invitation $invitation)
+    public function update(InvitationRequest $request, Invitation $invitation)
     {
-        $request->validate([
-        'user_id' => 'required|exists:users,id',
-        'package_id' => 'required|exists:packages,id',
-        'category_id' => 'required|exists:categories,id',
-        'template_id' => 'required|exists:templates,id',
-        'invitation_name' => 'required|string|max:255',
-        'date_type' => 'required|in:gregorian,hijri',
-        'invitation_date' => 'required|date',
-        'invitation_time' => 'required',
-        'invitation_image' => 'nullable|image|max:2048',
-        'invitation_video' => 'nullable|mimes:mp4,avi|max:10240',
-        'city' => 'required|string|max:255',
-        'hood' => 'required|string|max:255',
-        'detailed_address' => 'required|string|max:500',
-        'payment_method' => 'required|in:credit_card,paypal',
-        'payment_status' => 'required|in:pending,completed',
-        'qr_code' => 'nullable|string|max:255',
-    ]);
+        $imageName = $request->hasFile('invitation_image')
+            ? FileHelper::uploadFile($request->file('invitation_image'), 'invitations/images')
+            : $invitation->invitation_image;
 
-        $invitation->update($request->all());
+        $videoName = $request->hasFile('invitation_video')
+            ? FileHelper::uploadFile($request->file('invitation_video'), 'invitations/videos')
+            : $invitation->invitation_video;
+
+        $invitation->update(array_merge(
+            $request->validated(), // Use validated data
+            [
+                'invitation_image' => $imageName,
+                'invitation_video' => $videoName,
+            ]
+        ));
+
         return redirect()->route('invitations.index')->with('success', 'تم تعديل الدعوة بنجاح');
     }
 

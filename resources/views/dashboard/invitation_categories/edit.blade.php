@@ -10,16 +10,8 @@
 
         <div class="card-body">
 
-            <div class="card-img-actions d-inline-block mb-3">
-                <img class="img-fluid rounded-circle" src="../../../assets/images/demo/users/face11.jpg" width="150"
-                    height="150" alt="">
-                <div class="card-img-actions-overlay card-img rounded-circle">
-                    <a href="#" class="btn btn-outline-white btn-icon rounded-pill">
-                        <i class="ph-pencil"></i>
-                    </a>
-                </div>
-            </div>
-    <form action="{{ route('invitation_categories.update',$package_categorie->id ) }}" method="POST" class="needs-validation" novalidate>
+
+    <form action="{{ route('invitation_categories.update',$invitationCategory->id ) }}" method="POST" class="needs-validation" novalidate>
         @csrf
         @method('PUT')
 
@@ -38,8 +30,25 @@
 </div>
 </div>
 </div>
+
+
+
+<script src="{{ asset('js/validation.js') }}"></script>
+
+<script src="{{ asset('js/toastrNotification.js') }}"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @elseif (session('error'))
+            toastr.error("{{ session('error') }}");
+        @elseif (session('info'))
+            toastr.info("{{ session('info') }}");
+        @elseif (session('warning'))
+            toastr.warning("{{ session('warning') }}");
+        @endif
+    });
+</script>
+
 @endsection
 
-@section('scripts')
-<script src="{{ asset('js/validation.js') }}"></script>
-@endsection

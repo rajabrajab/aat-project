@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap");
+html,
+body {
+  font-family: "Cairo";
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  color: #667e9b;
+  height: 100%;
+  width: 100%;
+  background: white;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+@media (max-width: 991px) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+.sginup-section {
+  padding: 20px 20px 10px;
+}
+.sginup-section .home {
+  font-weight: 400;
+  font-size: 14px;
+  color: #000000;
+  text-decoration: none;
+}
+.sginup-section span {
+  color: #000000;
+  font-size: 14px;
+}
+.sginup-section .login-form {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 67px 100px 6px;
+}
+@media (max-width: 767px) {
+  .sginup-section .login-form {
+    padding: 10px 5px 10px;
+  }
+}
+.sginup-section .login-form form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sginup-section .login-form .form-group {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.sginup-section .login-form input {
+  max-width: 70%;
+  margin-bottom: 30px;
+  box-sizing: border-box;
+  padding: 12px 10px;
+  background: #ecefff;
+  border: 1px solid #c0c6ff;
+  border-radius: 10px;
+  text-align: right;
+}
+@media (max-width: 767px) {
+  .sginup-section .login-form input {
+    max-width: 100%;
+  }
+}
+.sginup-section .login-form .fa-eye,
+.sginup-section .login-form .fa-eye-slash {
+  position: absolute;
+  top: 34%;
+  right: 79%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #4621d5;
+  height: 20px;
+}
+@media (max-width: 767px) {
+  .sginup-section .login-form .fa-eye,
+  .sginup-section .login-form .fa-eye-slash {
+    right: 89%;
+  }
+}
+.sginup-section .login-form .fa-eye-slash {
+  color: #8e8585;
+}
+.sginup-section .login-form input::-moz-placeholder {
+  font-weight: 300;
+  font-size: 18px;
+  color: rgba(56, 56, 56, 0.7);
+}
+.sginup-section .login-form input::placeholder {
+  font-weight: 300;
+  font-size: 18px;
+  color: rgba(56, 56, 56, 0.7);
+}
+.sginup-section .login-form .separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 30px 0;
+}
+.sginup-section .login-form .separator .line {
+  flex-grow: 1;
+  height: 1px;
+  background-color: #c0c0c0;
+}
+.sginup-section .login-form .separator span {
+  margin: 0 15px;
+  color: #383838;
+  font-size: 16px;
+}
+.sginup-section .login-form .log-btn {
+  width: 70%;
+  border: none;
+  color: #ffffff;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  font-size: 15px;
+  padding: 16px 0px;
+  background: #4621d5;
+  border-radius: 10px;
+}
+@media (max-width: 767px) {
+  .sginup-section .login-form .log-btn {
+    width: 100%;
+  }
+}
+.sginup-section .login-form .login {
+  color: rgb(117, 117, 117);
+  text-decoration: underline;
+}
+.sginup-section .login-form .login a {
+  color: #4621d5;
+}
+.sginup-section .login-form h3 {
+  font-weight: 700;
+  font-size: 28px;
+  color: #383838;
+}
+.sginup-section .login-form .gmail-logo {
+  margin-bottom: 30px;
+}
+.sginup-section .login-form .phone-group {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  max-width: 70%;
+}
+@media (max-width: 767px) {
+  .sginup-section .login-form .phone-group {
+    max-width: 100%;
+  }
+}
+.sginup-section .login-form .phone-group .country-code-select {
+  background: #ecefff url("../imgs/arrow.svg") no-repeat left 3px center;
+  background-size: 29px;
+  max-width: 30%;
+  padding: 12px 10px;
+  border: 1px solid #c0c6ff;
+  border-radius: 10px;
+  text-align: right;
+  margin-left: 10px;
+  height: 30%;
+}
+@media (max-width: 767px) {
+  .sginup-section .login-form .phone-group .country-code-select {
+    max-width: 40%;
+  }
+}
+.sginup-section .image-col {
+  max-height: 95vh;
+  overflow: hidden;
+}
+.sginup-section .image-col img {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}/*# sourceMappingURL=signup.css.map */

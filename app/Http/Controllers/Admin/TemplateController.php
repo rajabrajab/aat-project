@@ -2,6 +2,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TemplateRequest;
+use App\Models\PackageCategory;
 use App\Models\Template;
 use Illuminate\Http\Request;
 
@@ -15,40 +17,26 @@ class TemplateController extends Controller
 
     public function create()
     {
-        // $categories = Category::all();
-        // return view('dashboard.templates.create', compact('categories'));
-
-         return view('dashboard.templates.create');
+        $categories = PackageCategory::all();
+        return view('dashboard.templates.create', compact('categories'));
 
     }
 
-    public function store(Request $request)
+    public function store(TemplateRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
-            'status' => 'required|in:active,inactive',
-        ]);
-
-        Template::create($request->all());
+        Template::create($request->validated()); // Use validated data
         return redirect()->route('templates.index')->with('success', 'تم إنشاء القالب بنجاح');
     }
 
     public function edit(Template $template)
     {
-        $categories = Category::all(); // Fetch categories for the dropdown
+        $categories = PackageCategory::all(); // Fetch categories for the dropdown
         return view('dashboard.templates.edit', compact('template', 'categories'));
     }
 
-    public function update(Request $request, Template $template)
+   public function update(TemplateRequest $request, Template $template)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
-            'status' => 'required|in:active,inactive',
-        ]);
-
-        $template->update($request->all());
+        $template->update($request->validated()); // Use validated data
         return redirect()->route('templates.index')->with('success', 'تم تعديل القالب بنجاح');
     }
 

@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
+
 <div class="container">
      <div class="card">
         <div class="card-header">
@@ -26,11 +27,11 @@
                 <select name="category_id" id="category_id" class="form-select" required>
                     <option value="" disabled {{ old('category_id') == '' ? 'selected' : '' }}>اختر الفئة</option>
                     <!-- Populate categories dynamically -->
-                    {{-- @foreach ($categories as $category)
+                    @foreach ($categories as $category)
                         <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
                             {{ $category->name }}
                         </option>
-                    @endforeach --}}
+                    @endforeach
                 </select>
                 @error('category_id') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
@@ -53,8 +54,24 @@
       </div>
      </div>
 </div>
+
+
+<script src="{{ asset('js/validation.js') }}"></script>
+
+<script src="{{ asset('js/toastrNotification.js') }}"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @elseif (session('error'))
+            toastr.error("{{ session('error') }}");
+        @elseif (session('info'))
+            toastr.info("{{ session('info') }}");
+        @elseif (session('warning'))
+            toastr.warning("{{ session('warning') }}");
+        @endif
+    });
+</script>
+
 @endsection
 
-@section('scripts')
-<script src="{{ asset('js/validation.js') }}"></script>
-@endsection

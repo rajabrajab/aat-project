@@ -6,6 +6,9 @@ require base_path('routes/admin.php');
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/dad', function () {
+    return view('dass');
+});
 
 Auth::routes();
 

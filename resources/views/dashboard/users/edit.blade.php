@@ -9,20 +9,28 @@
 
         <div class="card-body">
 
-            <div class="card-img-actions d-inline-block mb-3">
-                <img class="img-fluid rounded-circle" src="../../../assets/images/demo/users/face11.jpg" width="150"
-                    height="150" alt="">
-                <div class="card-img-actions-overlay card-img rounded-circle">
-                    <a href="#" class="btn btn-outline-white btn-icon rounded-pill">
-                        <i class="ph-pencil"></i>
-                    </a>
-                </div>
-            </div>
 
     <form action="{{ route('users.update', $user->id)}}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
         @csrf
 
         @method('PUT')
+
+         <div class="card-img-actions d-inline-block position-relative">
+                    <!-- Profile Image -->
+                    <img class="img-fluid rounded-circle" id="profileImagePreview"
+                    src="{{ asset($user->avatar ? 'storage/' . $user->avatar : 'assets/images/demo/users/face1.jpg') }}"
+                    height="150" width="150" alt="User Avatar">
+                    <!-- Overlay with Icon -->
+                    <div class="card-img-actions-overlay card-img rounded-circle">
+                        <label for="avatarInput" class="btn btn-outline-white btn-icon rounded-pill">
+                            <i class="ph-pencil"></i>
+                            <input type="file" name="avatar" id="avatarInput" class="form-control d-none"
+                                accept="image/*">
+                        </label>
+                    </div>
+                </div>
+                <!-- Display Selected File Name -->
+                <div id="fileNameDisplay" class="text-muted mt-2"></div>
 
 
         <div class="row g-3">
@@ -32,23 +40,12 @@
                 @error('email') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
 
-            <div class="col-md-6">
-                <label for="password" class="form-label">كلمة المرور</label>
-                <input type="password" name="password" id="password" class="form-control" placeholder="أدخل كلمة المرور" required minlength="8">
-                @error('password') <div class="text-danger">{{ $message }}</div> @enderror
-            </div>
-
-            <div class="col-md-6">
-                <label for="avatar" class="form-label">الصورة الشخصية</label>
-                <input type="file" name="avatar" id="avatar" class="form-control" accept="image/*">
-                @error('avatar') <div class="text-danger">{{ $message }}</div> @enderror
-            </div>
 
             <div class="col-md-6">
                 <label for="source_platform" class="form-label">منصة المصدر</label>
                 <select name="source_platform" id="source_platform" class="form-select" required>
                     <option value="" disabled {{ old('source_platform', $user->source_platform ?? '') == '' ? 'selected' : '' }}>اختر المنصة</option>
-                    @foreach(['Platform1', 'Platform2', 'Platform3'] as $platform)
+                    @foreach(['facebook', 'instagrm','x','snapchat'] as $platform)
                         <option value="{{ $platform }}" {{ old('source_platform', $user->source_platform ?? '') == $platform ? 'selected' : '' }}>
                             {{ $platform }}
                         </option>
@@ -133,9 +130,62 @@
         </div>
      </div>
 </div>
-@endsection
 
 
-@section('scripts')
+
 <script src="{{ asset('js/validation.js') }}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const avatarInput = document.getElementById('avatarInput');
+        const profileImagePreview = document.getElementById('profileImagePreview');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+
+        if (avatarInput) {
+            avatarInput.addEventListener('change', function (event) {
+                const file = event.target.files[0];
+
+                if (file) {
+                    // Update image preview
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        if (profileImagePreview) {
+                            profileImagePreview.src = e.target.result;
+                        }
+                    };
+                    reader.readAsDataURL(file);
+
+                    // Show file name
+                    if (fileNameDisplay) {
+                        fileNameDisplay.textContent = file.name;
+                    }
+                } else {
+                    // Clear file name display
+                    if (fileNameDisplay) {
+                        fileNameDisplay.textContent = '';
+                    }
+                }
+            });
+        }
+    });
+</script>
+
+
+<script src="{{ asset('js/toastrNotification.js') }}"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @elseif (session('error'))
+            toastr.error("{{ session('error') }}");
+        @elseif (session('info'))
+            toastr.info("{{ session('info') }}");
+        @elseif (session('warning'))
+            toastr.warning("{{ session('warning') }}");
+        @endif
+    });
+</script>
+
 @endsection
+
+

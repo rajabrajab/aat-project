@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PackageRequest;
 use App\Models\Package;
+use App\Models\PackageCategory;
 use Illuminate\Http\Request;
 
 class PackageController extends Controller
@@ -16,48 +18,26 @@ class PackageController extends Controller
 
     public function create()
     {
-        // $categories = Category::all();
-        return view('dashboard.packages.create');
-        // return view('dashboard.packages.create', compact('categories'));
+        $categories = PackageCategory::all();
+
+        return view('dashboard.packages.create', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(PackageRequest $request)
     {
-        $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'invitees_count' => 'required|integer|min:1',
-            'status' => 'required|in:active,inactive',
-            'description' => 'nullable|string|max:500',
-            'recommended' => 'required|boolean',
-            'accept_coupon' => 'required|boolean',
-        ]);
-
-        Package::create($request->all());
+        Package::create($request->validated()); // Use validated data
         return redirect()->route('packages.index')->with('success', 'تم إنشاء الباقة بنجاح');
     }
 
     public function edit(Package $package)
     {
-        $categories = Category::all(); // Fetch categories for the dropdown
-        return view('dashboard.packages.edit', compact('package', 'categories'));
+        $categories = PackageCategory::all(); // Fetch categories for the dropdown
+        return view('dashboard.packages.edit', compact('categories' ,'package'));
     }
 
-    public function update(Request $request, Package $package)
+    public function update(PackageRequest $request, Package $package)
     {
-        $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'invitees_count' => 'required|integer|min:1',
-            'status' => 'required|in:active,inactive',
-            'description' => 'nullable|string|max:500',
-            'recommended' => 'required|boolean',
-            'accept_coupon' => 'required|boolean',
-        ]);
-
-        $package->update($request->all());
+        $package->update($request->validated()); // Use validated data
         return redirect()->route('packages.index')->with('success', 'تم تعديل الباقة بنجاح');
     }
 

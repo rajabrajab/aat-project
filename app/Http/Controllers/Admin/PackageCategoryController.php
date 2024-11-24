@@ -9,8 +9,8 @@ class PackageCategoryController extends Controller
 {
     public function index()
     {
-        $categories = PackageCategory::all();
-        return view('dashboard.package_categories.index', compact('categories'));
+        $package_categories = PackageCategory::all();
+        return view('dashboard.package_categories.index', compact('package_categories'));
     }
 
     public function create()

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 
@@ -19,51 +20,32 @@ class ContactController extends Controller
         return view('dashboard.contacts.create');
     }
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:100',
-            'last_name' => 'required|string|max:100',
-            'position' => 'nullable|string|max:100',
-            'birth_date' => 'nullable|date',
-            'gender' => 'required|in:male,female',
-            'phone_number' => 'required|string|max:20',
-            'whatsapp_number' => 'nullable|string|max:20',
-            'email' => 'required|email|max:100|unique:contacts,email',
-        ]);
+  public function store(ContactRequest $request)
+{
+    $validated = $request->validated(); // Get validated data
 
-        $validated['created_by'] = auth()->id();
+    $validated['created_by'] = auth()->id(); // Add additional data
 
-        Contact::create($validated);
+    Contact::create($validated);
 
-        return redirect()->route('contacts.index')->with('success', 'Contact created successfully!');
-    }
+    return redirect()->route('contacts.index')->with('success', 'Contact created successfully!');
+}
 
     public function edit(Contact $contact)
     {
         return view('dashboard.contacts.edit', compact('contact'));
     }
 
-    public function update(Request $request, Contact $contact)
-    {
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:100',
-            'last_name' => 'required|string|max:100',
-            'position' => 'nullable|string|max:100',
-            'birth_date' => 'nullable|date',
-            'gender' => 'required|in:male,female',
-            'phone_number' => 'required|string|max:20',
-            'whatsapp_number' => 'nullable|string|max:20',
-            'email' => 'required|email|max:100|unique:contacts,email,' . $contact->id,
-        ]);
+   public function update(ContactRequest $request, Contact $contact)
+{
+    $validated = $request->validated(); // Get validated data
 
-        $validated['created_by'] = auth()->id();
+    $validated['created_by'] = auth()->id(); // Add additional data
 
-        $contact->update($validated);
+    $contact->update($validated);
 
-        return redirect()->route('contacts.index')->with('success', 'Contact updated successfully!');
-    }
-
+    return redirect()->route('contacts.index')->with('success', 'Contact updated successfully!');
+}
     public function destroy(Contact $contact)
     {
         $contact->delete();

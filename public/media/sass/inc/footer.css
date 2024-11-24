@@ -1,0 +1,28 @@
+.footer {
+  background-color: #4621d5;
+  color: #e1e1e1;
+  gap: 20px;
+}
+.footer .footer-logo {
+  max-width: 100px;
+}
+.footer .footer-link {
+  color: #e1e1e1;
+  margin-left: 24px;
+  text-decoration: none;
+  font-size: 16px;
+}
+.footer .footer-divider {
+  border-color: #e1e1e1;
+}
+.footer .copy {
+  color: #e1e1e1;
+  font-size: 14px;
+}
+.footer .icon {
+  justify-content: center !important;
+}
+.footer .icon img {
+  width: 36px;
+  height: 36px;
+}/*# sourceMappingURL=footer.css.map */
