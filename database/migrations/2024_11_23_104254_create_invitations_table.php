@@ -40,8 +40,8 @@ return new class extends Migration
             $table->integer('absent_count')->default(0); // Absent Count (int)
             $table->bigInteger('deleted_by')->nullable(); // Deleted By (bigint)
             $table->string('package_json')->nullable(); // Package JSON (varchar)
-            $table->enum('created_from', ['system', 'user']); // Created From (enum)
-            $table->enum('invitation_status', ['draft', 'published', 'archived']); // Invitation Status (enum)
+            $table->enum('created_from', ['app', 'web']); // Created From (enum)
+            $table->enum('invitation_status', ['closed', 'open', 'inactive','active']); // Invitation Status (enum)
             $table->string('qr_code')->nullable(); // QR Code (varchar)
             $table->timestamps(); // Created at and Updated at
             $table->softDeletes(); // Soft Delete

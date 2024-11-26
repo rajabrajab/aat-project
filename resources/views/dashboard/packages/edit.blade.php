@@ -54,7 +54,7 @@
                 <select name="status" id="status" class="form-select" required>
                     <option value="" disabled {{ old('status' , $package->status) == '' ? 'selected' : '' }}>اختر الحالة</option>
                     <option value="active" {{ old('status' , $package->status) == 'active' ? 'selected' : '' }}>نشط</option>
-                    <option value="inactive" {{ old('status' , $package->status) == 'inactive' ? 'selected' : '' }}>غير نشط</option>
+                    <option value="unactive" {{ old('status' , $package->status) == 'unactive' ? 'selected' : '' }}>غير نشط</option>
                 </select>
                 @error('status') <div class="text-danger">{{ $message }}</div> @enderror
             </div>

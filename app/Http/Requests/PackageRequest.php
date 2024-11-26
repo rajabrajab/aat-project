@@ -23,7 +23,7 @@ class PackageRequest extends FormRequest
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'invitees_count' => 'required|integer|min:1',
-            'status' => 'required|in:active,inactive',
+            'status' => 'required|in:active,unactive',
             'description' => 'nullable|string|max:500',
             'recommended' => 'required|boolean',
             'accept_coupon' => 'required|boolean',

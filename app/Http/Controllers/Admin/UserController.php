@@ -44,7 +44,7 @@ class UserController extends Controller
 }
 
     public function update(UserRequest $request, User $user)
-{
+    {
 
     $validated = $request->validated();
 
@@ -62,9 +62,9 @@ class UserController extends Controller
     $user->update($validated);
 
     return redirect()->route('users.index')->with('success', 'User updated successfully!');
-}
+    }
 
-    public function destroy(User $user)
+    public function destroy(User $user) // this function name tooo delete
     {
         $user->update(['deleted_by' => auth()->id()]);
         $user->delete();

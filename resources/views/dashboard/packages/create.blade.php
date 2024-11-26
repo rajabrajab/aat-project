@@ -52,7 +52,7 @@
                 <select name="status" id="status" class="form-select" required>
                     <option value="" disabled>اختر الحالة</option>
                     <option value="active" >نشط</option>
-                    <option value="inactive" >غير نشط</option>
+                    <option value="unactive" >غير نشط</option>
                 </select>
                 @error('status') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
