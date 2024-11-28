@@ -12,7 +12,7 @@
         </div>
         <div class="card-body">
 
-            <form action="{{ route('admin.settings.update') }}" method="POST" enctype="multipart/form-data"
+            <form action="{{ route('settings.update') }}" method="POST" enctype="multipart/form-data"
                 class="needs-validation" novalidate>
                 @csrf
                 <div class="row mb-3">

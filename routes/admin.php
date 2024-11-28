@@ -29,7 +29,7 @@ Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
     // Dashboard and profile routes
     Route::get('/', function () {
         return view('dashboard.dashboard');
-    })->name('admin.dashboard');
+    })->name('dashboard');
 
    //Profile
     Route::middleware(['auth'])->name('admin.')->group(function () {
@@ -51,7 +51,7 @@ Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('payments', App\Http\Controllers\Admin\PaymentController::class);
 
     //settings
-    Route::get('settings', [App\Http\Controllers\Admin\OptionController::class, 'index'])->name('admin.settings.index');
-    Route::post('settings', [App\Http\Controllers\Admin\OptionController::class, 'update'])->name('admin.settings.update');
+    Route::get('settings', [App\Http\Controllers\Admin\OptionController::class, 'index'])->name('settings.index');
+    Route::post('settings', [App\Http\Controllers\Admin\OptionController::class, 'update'])->name('settings.update');
 
 });

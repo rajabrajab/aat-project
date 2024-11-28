@@ -4,7 +4,7 @@
 <div class="container">
      <div class="card">
         <div class="card-header">
-            <h5 class="mb-0">Profile information</h5>
+            <h5 class="mb-0">معلومات المستخدم</h5>
         </div>
 
         <div class="card-body">
@@ -18,7 +18,7 @@
          <div class="card-img-actions d-inline-block position-relative">
                     <!-- Profile Image -->
                     <img class="img-fluid rounded-circle" id="profileImagePreview"
-                    src="{{ asset($user->avatar ? 'storage/' . $user->avatar : 'assets/images/demo/users/face1.jpg') }}"
+                    src="{{ asset($user->avatar ? 'storage/' . $user->avatar : 'assets/images/demo/users/face2.jpg') }}"
                     height="150" width="150" alt="User Avatar">
                     <!-- Overlay with Icon -->
                     <div class="card-img-actions-overlay card-img rounded-circle">

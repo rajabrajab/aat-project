@@ -17,7 +17,7 @@
                 <div class="card-img-actions d-inline-block position-relative">
                     <!-- Profile Image -->
                     <img id="profileImagePreview" class="img-fluid rounded-circle"
-                        src="../../../assets/images/demo/users/face11.jpg" width="150" height="150" alt="User Avatar">
+                        src="../../../assets/images/demo/users/face2.jpg" width="150" height="150" alt="User Avatar">
                     <!-- Overlay with Icon -->
                     <div class="card-img-actions-overlay card-img rounded-circle">
                         <label for="avatarInput" class="btn btn-outline-white btn-icon rounded-pill">

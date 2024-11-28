@@ -52,6 +52,6 @@ class OptionController extends Controller
             Option::updateOrCreate(['key' => $key], ['value' => $value]);
         }
 
-        return redirect()->route('admin.settings.index')->with('success', 'Settings updated successfully.');
+        return redirect()->route('settings.index')->with('success', 'Settings updated successfully.');
     }
 }

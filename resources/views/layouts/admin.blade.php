@@ -19,22 +19,22 @@
     <!-- /core JS files -->
 
     <!-- Theme JS files -->
-	<script src="{{ asset('assets/js/vendor/visualization/d3/d3.min.js')}}"></script>
-	<script src="{{ asset('assets/js/vendor/visualization/d3/d3_tooltip.js')}}"></script>
+    <script src="{{ asset('assets/js/vendor/visualization/d3/d3.min.js')}}"></script>
+    <script src="{{ asset('assets/js/vendor/visualization/d3/d3_tooltip.js')}}"></script>
 
-	<script src="{{ asset('assets-layout/js/app.js')}}"></script>
-	<script src="{{ asset('assets/demo/pages/dashboard.js')}}"></script>
-	<script src="{{ asset('assets/demo/charts/pages/dashboard/streamgraph.js')}}"></script>
-	<script src="{{ asset('assets/demo/charts/pages/dashboard/sparklines.js')}}"></script>
-	<script src="{{ asset('assets/demo/charts/pages/dashboard/lines.js')}}"></script>
-	<script src="{{ asset('assets/demo/charts/pages/dashboard/areas.js')}}"></script>
-	<script src="{{ asset('assets/demo/charts/pages/dashboard/donuts.js')}}"></script>
-	<script src="{{ asset('assets/demo/charts/pages/dashboard/bars.js')}}"></script>
-	<script src="{{ asset('assets/demo/charts/pages/dashboard/progress.js')}}"></script>
-	<script src="{{ asset('assets/demo/charts/pages/dashboard/heatmaps.js')}}"></script>
-	<script src="{{ asset('assets/demo/charts/pages/dashboard/pies.js')}}"></script>
-	<script src="{{ asset('assets/demo/charts/pages/dashboard/bullets.js')}}"></script>
-	<!-- /theme JS files -->
+    <script src="{{ asset('assets-layout/js/app.js')}}"></script>
+    <script src="{{ asset('assets/demo/pages/dashboard.js')}}"></script>
+    <script src="{{ asset('assets/demo/charts/pages/dashboard/streamgraph.js')}}"></script>
+    <script src="{{ asset('assets/demo/charts/pages/dashboard/sparklines.js')}}"></script>
+    <script src="{{ asset('assets/demo/charts/pages/dashboard/lines.js')}}"></script>
+    <script src="{{ asset('assets/demo/charts/pages/dashboard/areas.js')}}"></script>
+    <script src="{{ asset('assets/demo/charts/pages/dashboard/donuts.js')}}"></script>
+    <script src="{{ asset('assets/demo/charts/pages/dashboard/bars.js')}}"></script>
+    <script src="{{ asset('assets/demo/charts/pages/dashboard/progress.js')}}"></script>
+    <script src="{{ asset('assets/demo/charts/pages/dashboard/heatmaps.js')}}"></script>
+    <script src="{{ asset('assets/demo/charts/pages/dashboard/pies.js')}}"></script>
+    <script src="{{ asset('assets/demo/charts/pages/dashboard/bullets.js')}}"></script>
+    <!-- /theme JS files -->
 
     <script src="{{ asset('assets/demo/pages/datatables_basic.js') }}"></script>
 
@@ -69,26 +69,25 @@
 
                 <li class="nav-item nav-item-dropdown-lg dropdown ms-lg-2">
                     <a href="#" class="navbar-nav-link align-items-center rounded-pill p-1" data-bs-toggle="dropdown">
-                        <span class="d-none d-lg-inline-block mx-lg-2">Victoria</span>
-                        <div class="status-indicator-container">
-                            <img src="../../../assets/images/demo/users/face11.jpg" class="w-32px h-32px rounded-pill"
-                                alt="">
-                            <span class="status-indicator bg-success"></span>
-                        </div>
+                        <span class="d-none d-lg-inline-block mx-lg-2">{{ Auth::user()->username ?? 'Guest' }}</span>
+                        <!-- <div class="status-indicator-container"> -->
+                        <img src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('assets/images/demo/users/face1.jpg') }}"
+                            class="w-32px h-32px rounded-pill" alt="User Avatar">
+                        <span class="status-indicator bg-success"></span>
+                        <!-- </div> -->
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a href="#" class="dropdown-item">
+                        <a href="{{ route('admin.profile') }}" class="dropdown-item">
                             <i class="ph-user-circle me-2"></i>
                             الملف الشخصي
                         </a>
 
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                             class="dropdown-item">
                             <i class="ph-sign-out me-2"></i>
                             تسجيل الخروج
-
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -133,91 +132,19 @@
                 <div class="sidebar-section">
                     <ul class="nav nav-sidebar" data-nav-type="accordion">
 
-                        <!-- Main -->
-                        <li class="nav-item">
-                            <a href="{{ route('admin.dashboard') }}" class="nav-link">
-                                <i class="ph-house"></i>
-                                <span>لوحة التحكم</span>
-                            </a>
-                        </li>
 
-                        <!-- Packages -->
+                        @foreach (userMenu() as $navItem)
+                        @if(!count($navItem['childs']) > 0)
+                        {{-- itme --}}
                         <li class="nav-item">
-                            <a href="{{ route('packages.index') }}" class="nav-link">
-                                <i class="ph-layout"></i>
-                                <span>الباقات</span>
+                            <a href="{{ $navItem['url'] }}" class="nav-link">
+                                <i class="{{ $navItem['icon'] }}"></i>
+                                <span>{{ $navItem['title'] }}</span>
                             </a>
                         </li>
+                        @endif
+                        @endforeach
 
-                        <!-- Package Categories -->
-                        <li class="nav-item">
-                            <a href="{{ route('package_categories.index') }}" class="nav-link">
-                                <i class="ph-hand-pointing"></i>
-                                <span>تصنيف الباقات</span>
-                            </a>
-                        </li>
-
-                        <!-- Users -->
-                        <li class="nav-item">
-                            <a href="{{ route('users.index') }}" class="nav-link">
-                                <i class="ph-swatches"></i>
-                                <span>المستخدمين</span>
-                            </a>
-                        </li>
-
-                        <!-- Contacts -->
-                        <li class="nav-item">
-                            <a href="{{ route('contacts.index') }}" class="nav-link">
-                                <i class="ph-note-blank"></i>
-                                <span>الجهات</span>
-                            </a>
-                        </li>
-
-                        <!-- Invitations -->
-                        <li class="nav-item">
-                            <a href="{{ route('invitations.index') }}" class="nav-link">
-                                <i class="ph-note-blank"></i>
-                                <span>الدعوات</span>
-                            </a>
-                        </li>
-                        <!-- Invitations -->
-                        <li class="nav-item">
-                            <a href="{{ route('invitation_categories.index') }}" class="nav-link">
-                                <i class="ph-note-blank"></i>
-                                <span>تصنيف الدعوات</span>
-                            </a>
-                        </li>
-
-                        <!-- Payments -->
-                        <li class="nav-item">
-                            <a href="{{ route('payments.index') }}" class="nav-link">
-                                <i class="ph-note-pencil"></i>
-                                <span>المدفوعات</span>
-                            </a>
-                        </li>
-
-                        <!-- Templates -->
-                        <li class="nav-item">
-                            <a href="{{ route('templates.index') }}" class="nav-link">
-                                <i class="ph-text-aa"></i>
-                                <span>القوالب</span>
-                            </a>
-                        </li>
-                        <!-- template_fields -->
-                        <li class="nav-item">
-                            <a href="{{ route('template_fields.index') }}" class="nav-link">
-                                <i class="ph-text-aa"></i>
-                                <span>حقول القوالب</span>
-                            </a>
-                        </li>
-
-                        <!-- Settings -->
-                        <li class="nav-item">
-                            <a href="{{ route('admin.settings.index') }}" class="nav-link">
-                                <i class="ph-text-aa"></i>
-                                <span>الإعدادت</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
                 <!-- /main navigation -->
@@ -252,7 +179,7 @@
                     <div class="page-header-content d-lg-flex border-top">
                         <div class="d-flex">
                             <div class="breadcrumb py-2">
-                                <a href="{{ route('admin.dashboard') }}" class="breadcrumb-item"><i
+                                <a href="{{ route('dashboard') }}" class="breadcrumb-item"><i
                                         class="ph-house"></i></a>
 
                                 <span class="breadcrumb-item active">@yield('title')</span>
