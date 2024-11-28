@@ -71,7 +71,7 @@
                     <a href="#" class="navbar-nav-link align-items-center rounded-pill p-1" data-bs-toggle="dropdown">
                         <span class="d-none d-lg-inline-block mx-lg-2">{{ Auth::user()->username ?? 'Guest' }}</span>
                         <!-- <div class="status-indicator-container"> -->
-                        <img src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('assets/images/demo/users/face1.jpg') }}"
+                        <img src="{{ Auth::user()->avatar ? asset("storage/" . Auth::user()->avatar) : asset('assets/images/demo/users/face1.jpg') }}"
                             class="w-32px h-32px rounded-pill" alt="User Avatar">
                         <span class="status-indicator bg-success"></span>
                         <!-- </div> -->

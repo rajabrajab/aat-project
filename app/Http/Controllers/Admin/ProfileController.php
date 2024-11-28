@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\ProfileHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        $user = ProfileHelper::getUser();
         return view('dashboard.profile.index', compact('user'));
     }
 
     public function update(Request $request)
     {
-        $user = Auth::user();
+        $user = ProfileHelper::getUser();
 
         $request->validate([
             'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
@@ -30,39 +30,24 @@ class ProfileController extends Controller
             'city' => 'required|string|max:100',
         ]);
 
-        $user->update($request->except('password', 'avatar'));
+        ProfileHelper::updateInformation($user, $request->except('password', 'avatar'));
 
         if ($request->filled('password')) {
-            $user->password = bcrypt($request->password);
+        $updateData['password'] = bcrypt($request->password);
         }
-
-        $user->save();
 
         return redirect()->route('admin.profile')->with('success', 'تم تحديث الملف الشخصي بنجاح.');
     }
 
     public function updateAvatar(Request $request)
-{
-    $request->validate([
-        'avatar' => 'required|image|max:2048',
-    ]);
+    {
+        $request->validate([
+            'avatar' => 'required|image|max:2048',
+        ]);
 
-    $user = Auth::user();
+        $user = ProfileHelper::getUser();
+        ProfileHelper::updateAvatar($user, $request->file('avatar'));
 
-
-    if ($request->hasFile('avatar')) {
-
-        if ($user->avatar && \Storage::exists($user->avatar)) {
-            \Storage::delete($user->avatar);
-        }
-
-
-        $avatarPath = $request->file('avatar')->store('avatars', 'public');
-        $user->avatar = $avatarPath;
-        $user->save();
+        return redirect()->back()->with('success', 'تم تحديث الصورة الشخصية');
     }
-
-    return redirect()->back()->with('success', 'تم تحديث الصورة الشخصية');
-}
-
 }

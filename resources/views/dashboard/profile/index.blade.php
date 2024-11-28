@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                 @csrf
                 @method('PUT')
 
