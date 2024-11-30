@@ -101,13 +101,25 @@ php artisan telescope:publish
 php artisan storage:link
 ```
 
-### 5. genrate api key
+### 6. genrate api key
 
 ```
 php artisan key:generate
 ```
+### 7. Install node_modules
 
-### 7. Login to admin dashboard
+```
+npm install
+
+```
+### 8. run vite 
+
+```
+npm run dev
+
+```
+
+### 9. Login to admin dashboard
 
 ```
 http://domain/log/1
